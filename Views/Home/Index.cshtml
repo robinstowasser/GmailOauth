@@ -1,0 +1,64 @@
+﻿@model List<GmailOAuth.Models.GmailMessages>
+@{
+    ViewBag.Title = "Home Page";
+}
+<div class="jumbotron">
+
+    <div class="row">
+        <div class="col-md-4">
+            @using (Html.BeginForm("Index", "Home", FormMethod.Post, new
+            {
+                @class = "form-horizontal"
+            }))
+            {
+
+                <div class="row">
+                    <label class="col-md-3">Username:</label>
+                    <div class="col-md-9">
+                        @Html.TextBox("From", "", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="clearfix">
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <input type="submit" value="Submit" />
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@if (Model != null && Model.Any())
+{
+    <div class="row">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>From</th>
+                    <th>Subject</th>
+                    <th>Body</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.From
+                        </td>
+
+                        <td>
+                            @item.Subject
+                        </td>
+
+                        <td>
+                            @Html.Raw(item.Body)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
